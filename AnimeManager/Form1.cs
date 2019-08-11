@@ -39,7 +39,8 @@ namespace AnimeManager
                 AutoSize = true,
                 Name = "MainScreen"
             };
-            this.Controls.Add(mainScreen);
+            splitContainer1.Panel2.Controls.Add(mainScreen);
+            //this.Controls.Add(mainScreen);
 
             foreach (DirectoryInfo animeFolder in mainFolder.EnumerateDirectories())
             {
@@ -143,7 +144,7 @@ namespace AnimeManager
         private void GoToDetails(Object sender, EventArgs e)
         {
             Control c = sender as Control;
-            Control mainScreen = this.Controls["MainScreen"];
+            Control mainScreen = splitContainer1.Panel2.Controls["MainScreen"];
             mainScreen.Hide();
 
             Panel detailScreen = new Panel
@@ -152,7 +153,7 @@ namespace AnimeManager
                 AutoSize = true,
                 Name = "DetailScreen"
             };
-            this.Controls.Add(detailScreen);
+            splitContainer1.Panel2.Controls.Add(detailScreen);
 
             Button btnBack = new Button
             {
@@ -325,8 +326,8 @@ namespace AnimeManager
 
         private void BackToMain(Object sender, EventArgs e)
         {
-            this.Controls.RemoveByKey("DetailScreen");
-            Control mainScreen = this.Controls["MainScreen"];
+            splitContainer1.Panel2.Controls.RemoveByKey("DetailScreen");
+            Control mainScreen = splitContainer1.Panel2.Controls["MainScreen"];
             mainScreen.Show();
             gbl_selectedAnime = "";
         }
@@ -465,9 +466,18 @@ namespace AnimeManager
             public int lastwatched;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void BtnMenu_Click(object sender, EventArgs e)
         {
-
+            if (splitContainer1.SplitterDistance == 44)
+            {
+                splitContainer1.SplitterDistance = 100;
+                toolTip1.SetToolTip(btnMenu, "Collapse Menu");
+            }
+            else
+            {
+                splitContainer1.SplitterDistance = 44;
+                toolTip1.SetToolTip(btnMenu, "Expand Menu");
+            }
         }
     }
 }
